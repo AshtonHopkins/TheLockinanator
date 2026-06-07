@@ -46,6 +46,10 @@ class FocusEngine:
         self.reset()
 
     @property
+    def level(self) -> float:
+        return self._meter.level
+
+    @property
     def stats(self) -> SessionStats:
         return SessionStats(
             focused_seconds=self._focused_seconds,

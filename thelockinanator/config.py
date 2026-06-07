@@ -75,11 +75,13 @@ _DEFAULTS: dict[str, Any] = {
         "look_away_yaw_deg": 25.0,
         "look_away_pitch_deg": 20.0,
         "phone_pitch_deg": 18.0,
+        "phone_hand_radius": 0.20,   # normalized distance from face center
         "absence_frames": 8,
     },
     "audio": {
         "volume": 1.0,
         "output_override": None,            # None=auto, "headphones", or "speaker"
+        "alarm_loops": 3,                   # extra repeats for the headphone alarm
         "alarm_sounds": ["assets/sounds/alarm.wav"],
         "fart_sounds": ["assets/sounds/fart.wav"],
     },

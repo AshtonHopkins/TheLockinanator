@@ -20,6 +20,7 @@ from typing import Callable
 from ..ui_state import UiState
 from . import layout
 from .meter_widget import MeterWidget
+from .toast import show_toast
 
 # --- palette (loud "energy drink" dark theme) ----------------------------
 BG = "#1b1b28"
@@ -65,7 +66,7 @@ class MainWindow:
         self._on_take_break = on_take_break
         self._on_toggle_preview = on_toggle_preview
         self._on_close = on_close
-        self._requests: queue.Queue[str] = queue.Queue()
+        self._requests: queue.Queue[tuple[str, object]] = queue.Queue()
 
         self.root = tk.Tk()
         self.root.title("The Lockinanator")
@@ -198,7 +199,15 @@ class MainWindow:
 
     def request_show(self) -> None:
         """Ask the window to restore itself (safe to call from any thread)."""
-        self._requests.put("show")
+        self._requests.put(("show", None))
+
+    def request_toast(self, message: str) -> None:
+        """Ask the window to show a low-key toast (safe to call from any thread)."""
+        self._requests.put(("toast", message))
+
+    def request_quit(self) -> None:
+        """Ask the window to close and end the mainloop (safe from any thread)."""
+        self._requests.put(("quit", None))
 
     def hide(self) -> None:
         self.root.withdraw()
@@ -265,15 +274,21 @@ class MainWindow:
     def _tick(self) -> None:
         while True:
             try:
-                cmd = self._requests.get_nowait()
+                kind, payload = self._requests.get_nowait()
             except queue.Empty:
                 break
-            if cmd == "show":
+            if kind == "show":
                 self.show()
+            elif kind == "toast":
+                show_toast(self.root, str(payload))
+            elif kind == "quit":
+                self.root.destroy()
+                return
         try:
             self.update(self._state_provider())
-        finally:
-            self.root.after(REFRESH_MS, self._tick)
+        except tk.TclError:
+            return  # window was destroyed
+        self.root.after(REFRESH_MS, self._tick)
 
     def run(self) -> None:
         self.root.after(REFRESH_MS, self._tick)

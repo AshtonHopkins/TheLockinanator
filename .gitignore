@@ -15,6 +15,13 @@ __pycache__/
 *.db
 config/user_config.json
 
+# Downloaded MediaPipe models (fetched on first run)
+thelockinanator/assets/models/
+
+# Dev scratch / previews
+_*.py
+_*.png
+
 # OS / editor
 .DS_Store
 Thumbs.db
