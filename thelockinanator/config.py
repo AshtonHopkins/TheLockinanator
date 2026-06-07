@@ -58,7 +58,7 @@ def _deep_merge(base: dict[str, Any], overrides: dict[str, Any]) -> dict[str, An
 _DEFAULTS: dict[str, Any] = {
     "focus_meter": {
         "max_level": 100.0,
-        "grace_seconds": 2.0,          # brief glances cost nothing
+        "grace_seconds": 1.5,          # brief glances cost nothing
         "drain_seconds": 10.0,         # full -> empty under sustained distraction
         "drain_exponent": 2.0,         # >1 makes the drain accelerate
         "refill_seconds": 120.0,       # empty -> full under sustained focus
@@ -72,10 +72,10 @@ _DEFAULTS: dict[str, Any] = {
     },
     "detection": {
         "fps": 12,
-        "look_away_yaw_deg": 25.0,
-        "look_away_pitch_deg": 20.0,
-        "phone_pitch_deg": 18.0,
-        "phone_hand_radius": 0.20,   # normalized distance from face center
+        "look_away_yaw_deg": 18.0,   # smaller head turn counts as looking away
+        "look_away_pitch_deg": 14.0,  # smaller downward tilt counts as looking down
+        "phone_pitch_deg": 12.0,
+        "phone_hand_radius": 0.24,   # normalized distance from face center
         "absence_frames": 8,
     },
     "audio": {

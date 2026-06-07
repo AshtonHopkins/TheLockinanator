@@ -35,8 +35,8 @@ def test_window_builds_places_art_and_renders_states():
     try:
         keys = [a.piece.key for a in win._art_refs]
         assert keys == ["eagle", "mushroom", "monster", "tank", "kitten"]
-        # Only the kitten is a placeholder (no Kitten.png supplied yet).
-        assert [a.piece.key for a in win._art_refs if a.is_placeholder] == ["kitten"]
+        # All art files are present now, so nothing should render as a placeholder.
+        assert [a.piece.key for a in win._art_refs if a.is_placeholder] == []
 
         win.update(UiState(running=True, level=80.0, focus_pct=80.0))
         win.update(UiState(running=True, level=10.0, active_sources=("phone_use",), focus_pct=30.0))
