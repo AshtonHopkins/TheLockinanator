@@ -1,0 +1,11 @@
+# Runtime dependencies for TheLockinanator (Windows MVP).
+# NOTE: MediaPipe/OpenCV wheels may lag the newest Python releases. If install
+# fails on your interpreter, create the venv with Python 3.12.
+opencv-python>=4.9
+mediapipe>=0.10
+Pillow>=10.0
+pystray>=0.19
+pygame>=2.5
+pycaw>=20240210
+comtypes>=1.2
+keyboard>=0.13
