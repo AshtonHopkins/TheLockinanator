@@ -5,7 +5,9 @@ opencv-python>=4.9
 mediapipe>=0.10
 Pillow>=10.0
 pystray>=0.19
-pygame>=2.5
+# pygame-ce is a drop-in replacement for pygame ("import pygame" still works)
+# that ships wheels for current Python versions (stock pygame has no 3.14 wheel).
+pygame-ce>=2.5
 pycaw>=20240210
 comtypes>=1.2
 keyboard>=0.13
